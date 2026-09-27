@@ -20,16 +20,14 @@ public class Timing {
     // pass in the function to the function!)
     public static <R> double averageTimeMs(int n, int repeats, IntFunction<R> fibonacci) {
         // TODO: Run the result multiple times and return the average in ms.
-        int num_runs = 10000;
+        /**
+         * I used AI to explain to compare the differences between the ms i computed
+         */
+
         long total_duration =0;
-        for(int i=0; i<num_runs; i++) {
-            long start = System.nanoTime();
-            fibonacci.apply(n);
-            long end = System.nanoTime();
-            total_duration+=(end-start);
-
+        for(int i=0;i<repeats;i++) {
+            total_duration += measureRunNs(n,fibonacci);
         }
-        return measureRunNs(n, fibonacci) / 1_000_000.0;
-
+        return total_duration/(double) repeats/1_000_000.0;
     }
 }
